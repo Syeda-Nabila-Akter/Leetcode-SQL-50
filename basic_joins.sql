@@ -1,3 +1,13 @@
+-- 1934. Confirmation Rate
+-- Difficulty: Medium
+SELECT 
+    S.user_id,
+    ROUND(COALESCE(COUNT(CASE WHEN ACTION = 'confirmed' THEN 1 END)/NULLIF(COUNT(ACTION)::NUMERIC, 0), 0), 2) AS confirmation_rate 
+FROM Confirmations C
+RIGHT JOIN Signups S
+    ON C.user_id = S.user_id 
+GROUP BY S.user_id;
+
 -- 570. Managers with at Least 5 Direct Reports
 -- Difficulty: Medium
 WITH emp_temp AS(
