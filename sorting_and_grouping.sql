@@ -15,7 +15,7 @@ FROM Activity
 WHERE activity_type IS NOT NULL AND activity_date BETWEEN '2019-06-28' AND '2019-07-27'
 GROUP BY activity_date;
 
--- Classes with at least 5 Students
+-- 596. Classes with at least 5 Students
 -- Difficulty: Easy
 SELECT
     class
