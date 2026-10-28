@@ -33,3 +33,18 @@ GROUP BY
     P.project_id
 ORDER BY
     P.project_id ASC;
+
+-- 1633. Percentage of Users Attended a Contest
+-- Difficulty: Easy
+WITH user_count AS (
+    SELECT COUNT(user_id) AS total_user
+    FROM Users
+)
+SELECT 
+    contest_id,
+    ROUND((COUNT(contest_id)::NUMERIC/user_count.total_user)*100, 2) AS percentage 
+FROM Register, user_count
+GROUP BY contest_id, user_count.total_user
+ORDER BY 
+percentage DESC, 
+contest_id ASC;
