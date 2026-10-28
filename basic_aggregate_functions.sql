@@ -9,7 +9,7 @@ FROM Cinema
 WHERE id % 2 = 1 AND description != 'boring'
 ORDER BY rating DESC;
 
--- 1251. Average Selling Price
+-- 1075. Project Employees I
 -- Difficulty: Easy
 SELECT
     p.product_id,
@@ -20,3 +20,16 @@ LEFT JOIN UnitsSold us
     AND us.purchase_date BETWEEN p.start_date AND p.end_date
 GROUP BY 
 p.product_id;
+
+-- 1251. Average Selling Price
+-- Difficulty: Easy
+SELECT
+    P.project_id,
+    ROUND(AVG(E.experience_years::NUMERIC), 2) AS average_years
+FROM Project P
+LEFT JOIN Employee E
+    ON P.employee_id = E.employee_id
+GROUP BY
+    P.project_id
+ORDER BY
+    P.project_id ASC;
