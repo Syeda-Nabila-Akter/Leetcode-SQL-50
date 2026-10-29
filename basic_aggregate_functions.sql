@@ -48,3 +48,22 @@ GROUP BY contest_id, user_count.total_user
 ORDER BY 
 percentage DESC, 
 contest_id ASC;
+
+-- 1211. Queries Quality and Percentage
+-- Difficulty: Easy
+WITH calc AS
+(
+    SELECT 
+        query_name,
+        rating,
+        position,
+        rating/position::numeric as calc_quality
+    FROM Queries
+)
+
+SELECT DISTINCT
+    query_name,
+    round(sum(calc_quality)/count(query_name)::numeric, 2) AS quality,
+    round(100*sum(CASE WHEN rating < 3 THEN 1 ELSE 0 END)/count(query_name)::numeric, 2) AS poor_query_percentage 
+FROM calc
+GROUP BY query_name;
