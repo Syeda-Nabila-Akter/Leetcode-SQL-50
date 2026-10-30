@@ -1,4 +1,4 @@
--- 2356. Number of Unique Subjects Taught by Each Teacher
+-- 1070. Product Sales Analysis III
 -- Difficulty: Medium
 WITH temp_table AS(
     SELECT 
