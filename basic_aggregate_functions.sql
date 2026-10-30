@@ -13,6 +13,26 @@ SELECT
 FROM delivery_rank
 WHERE rnk = 1;
 
+-- 550. Game Play Analysis IV
+-- Difficulty: Medium
+WITH temp_table AS (
+    SELECT 
+        player_id,
+        event_date,
+        ROW_NUMBER() OVER(
+            PARTITION BY player_id ORDER BY event_date 
+        ) AS rnk,
+        first_value(event_date) OVER(
+            PARTITION BY player_id 
+            ORDER BY event_date
+        ) AS first_date
+FROM Activity
+)
+SELECT 
+ROUND(
+    COUNT(CASE WHEN rnk = 2 AND first_date + 1 = event_date THEN 1 END)::NUMERIC / COUNT(distinct player_id), 2) AS fraction 
+FROM temp_table;
+
 -- 1193. Monthly Transactions I
 -- Difficulty: Medium
 SELECT
