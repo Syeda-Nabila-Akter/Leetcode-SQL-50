@@ -1,4 +1,23 @@
 -- 2356. Number of Unique Subjects Taught by Each Teacher
+-- Difficulty: Medium
+WITH temp_table AS(
+    SELECT 
+        *,
+        RANK() OVER(
+            PARTITION BY product_id 
+            ORDER BY year
+        ) AS rnk
+    FROM Sales
+)
+SELECT 
+    product_id,
+    year AS first_year,
+    quantity,
+    price
+FROM temp_table
+WHERE rnk = 1;
+
+-- 2356. Number of Unique Subjects Taught by Each Teacher
 -- Difficulty: Easy
 SELECT 
     teacher_id,
