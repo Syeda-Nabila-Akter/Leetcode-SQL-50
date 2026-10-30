@@ -1,4 +1,4 @@
--- 1667. Fix Names in a Table
+-- 1527. Patients With a Condition
 -- Difficulty: Easy
 SELECT
     user_id,
@@ -8,3 +8,8 @@ SELECT
     ) AS name
 FROM Users
 ORDER BY user_id ASC;
+
+-- 1667. Fix Names in a Table
+-- Difficulty: Easy
+SELECT * FROM Patients WHERE conditions 
+LIKE 'DIAB1%' OR conditions LIKE '% DIAB1%';
