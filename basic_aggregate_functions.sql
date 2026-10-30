@@ -1,3 +1,18 @@
+-- 1174. Immediate Food Delivery II
+-- Difficulty: Medium
+WITH delivery_rank AS (
+    SELECT
+        *,
+        ROW_NUMBER () OVER (
+            PARTITION BY customer_id ORDER BY order_date
+        ) AS rnk
+    FROM Delivery
+)
+SELECT 
+    ROUND(SUM(CASE WHEN order_date = customer_pref_delivery_date THEN 1 ELSE 0 END)::NUMERIC*100 / COUNT(*), 2) AS immediate_percentage 
+FROM delivery_rank
+WHERE rnk = 1;
+
 -- 1193. Monthly Transactions I
 -- Difficulty: Medium
 SELECT
