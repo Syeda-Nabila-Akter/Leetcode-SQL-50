@@ -49,3 +49,10 @@ LEFT JOIN Products
 WHERE order_date BETWEEN '2020-02-01' AND '2020-02-29'
 GROUP BY product_name
 HAVING SUM(unit) >= 100;
+
+-- 1517. Find Users With Valid E-Mails
+-- Difficulty: Easy
+SELECT 
+    * 
+FROM Users
+    WHERE mail ~ '^[A-Za-z][A-Za-z0-9_.-]*@leetcode[.]com$';
