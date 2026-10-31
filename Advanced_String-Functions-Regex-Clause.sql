@@ -37,3 +37,15 @@ SELECT
     STRING_AGG (DISTINCT product,',') AS products
 FROM Activities
 GROUP BY sell_date;
+
+-- 1327. List the Products Ordered in a Period
+-- Difficulty: Easy
+SELECT DISTINCT
+    product_name,
+    SUM(unit) AS unit
+FROM Orders
+LEFT JOIN Products
+    ON Orders.product_id = Products.product_id
+WHERE order_date BETWEEN '2020-02-01' AND '2020-02-29'
+GROUP BY product_name
+HAVING SUM(unit) >= 100;
