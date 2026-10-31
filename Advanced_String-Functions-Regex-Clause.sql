@@ -1,3 +1,21 @@
+-- 176. Second Highest Salary
+-- Difficulty: Medium
+WITH temp_table AS(
+    SELECT
+        id,
+        salary,
+        DENSE_RANK() OVER(
+            ORDER BY salary DESC
+        ) AS rnk 
+    FROM Employee
+)
+SELECT 
+    (
+        SELECT
+            DISTINCT salary 
+            FROM temp_table 
+            WHERE rnk = 2
+    ) AS SecondHighestSalary 
 -- 1527. Patients With a Condition
 -- Difficulty: Easy
 SELECT
