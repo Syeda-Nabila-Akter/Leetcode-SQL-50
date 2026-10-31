@@ -13,3 +13,18 @@ ORDER BY user_id ASC;
 -- Difficulty: Easy
 SELECT * FROM Patients WHERE conditions 
 LIKE 'DIAB1%' OR conditions LIKE '% DIAB1%';
+
+-- 196. Delete Duplicate Emails
+-- Difficulty: Easy
+WITH temp_table AS(
+    SELECT
+        id,
+        email,
+        ROW_NUMBER() OVER(
+            PARTITION BY email
+            ORDER BY id
+        ) AS rnk
+    FROM Person
+)
+DELETE FROM temp_table
+WHERE rnk > 1;
