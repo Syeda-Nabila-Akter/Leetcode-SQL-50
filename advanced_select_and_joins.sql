@@ -1,9 +1,7 @@
 -- 610. Triangle Judgement
 -- Difficulty: Easy
 SELECT
-    x,
-    y,
-    z,
+    x, y, z,
     CASE WHEN x+y > z AND x+z > y AND z+y > x THEN 'Yes' Else 'No' END AS triangle   
 FROM Triangle;
 
@@ -21,3 +19,16 @@ SELECT
     department_id
 FROM Employee
 WHERE primary_flag = 'Y';
+
+-- 1731. The Number of Employees Which Report to Each Employee
+-- Difficulty: Easy
+SELECT
+e1.employee_id,
+e1.name,
+COUNT(e2.reports_to) AS reports_count,
+ROUND(AVG(e2.age)) AS average_age 
+FROM Employees e1
+JOIN Employees e2
+    ON e1.employee_id = e2.reports_to
+GROUP BY e2.reports_to
+ORDER BY e1.employee_id;
