@@ -1,3 +1,15 @@
+-- 180. Consecutive Numbers
+-- Difficulty: Medium
+WITH val AS (
+    SELECT
+        id,
+        num,
+        LEAD(num) OVER(ORDER BY id) AS front_value,
+        LAG(num) OVER(ORDER BY id) AS back_value
+    FROM Logs
+)
+SELECT DISTINCT num AS ConsecutiveNums FROM val WHERE num = front_value AND num = back_value;
+
 -- 610. Triangle Judgement
 -- Difficulty: Easy
 SELECT
