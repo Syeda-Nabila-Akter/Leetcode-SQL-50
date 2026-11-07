@@ -1,3 +1,26 @@
+-- 1164. Product Price at Given Date
+-- Difficulty: Medium
+WITH temp_table AS(
+    SELECT
+        product_id,
+        new_price,
+        change_date,
+        ROW_NUMBER() OVER(
+            PARTITION BY product_id
+            ORDER BY change_date DESC
+        ) as rnk
+FROM Products
+WHERE change_date <= '2019-08-16'
+)
+
+SELECT
+    p.product_id,
+    COALESCE(t.new_price, 10) AS price
+FROM (SELECT DISTINCT product_id FROM Products) p
+LEFT JOIN temp_table t
+    ON p.product_id = t.product_id
+    AND t.rnk = 1;
+
 -- 180. Consecutive Numbers
 -- Difficulty: Medium
 WITH val AS (
