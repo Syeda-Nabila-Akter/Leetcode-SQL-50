@@ -1,3 +1,30 @@
+-- 1907. Count Salary Categories
+-- Difficulty: Medium
+WITH categoris AS(
+    SELECT 'Low Salary' AS category
+    UNION ALL
+    SELECT 'Average Salary'
+    UNION ALL
+    SELECT 'High Salary'
+),
+temp_table AS(
+    SELECT
+            *,
+            CASE 
+                WHEN income < 20000 THEN 'Low Salary'
+                WHEN income BETWEEN 20000 AND 50000 THEN 'Average Salary'
+                WHEN income > 50000 THEN 'High Salary'
+            END AS category
+    FROM Accounts
+)
+SELECT
+    c.category,
+    COALESCE(COUNT(t.account_id), 0) AS accounts_count
+FROM categoris c 
+LEFT JOIN temp_table t 
+    ON c.category = t.category
+GROUP BY c.category;
+
 -- 1204. Last Person to Fit the Bus
 -- Difficulty: Medium
 WITH temp_table AS(
