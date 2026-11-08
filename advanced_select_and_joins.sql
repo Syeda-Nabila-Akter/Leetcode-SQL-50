@@ -1,3 +1,21 @@
+-- 1204. Last Person to Fit the Bus
+-- Difficulty: Medium
+WITH temp_table AS(
+    SELECT
+        *,
+        SUM(weight) OVER(
+            ORDER BY turn
+            ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+        ) AS Total_Weight
+    FROM Queue
+)
+
+SELECT person_name
+FROM temp_table
+WHERE Total_Weight <= 1000
+ORDER BY Total_Weight DESC
+LIMIT 1;
+
 -- 1164. Product Price at Given Date
 -- Difficulty: Medium
 WITH temp_table AS(
