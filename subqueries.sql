@@ -21,6 +21,39 @@ SELECT
 FROM temp_table
 WHERE rnk <= 3;
 
+-- 602. Friend Requests II: Who Has the Most Friends
+-- Difficulty: Medium
+WITH temp_table AS(
+    SELECT
+        requester_id AS id,
+        COUNT(requester_id) as num
+    FROM RequestAccepted 
+    GROUP BY requester_id
+
+    UNION ALL
+
+    SELECT
+        accepter_id AS id,
+        COUNT(accepter_id) as num
+    FROM RequestAccepted 
+    GROUP BY accepter_id
+),
+
+temp_table2 AS(
+    SELECT 
+        id,
+        sum(num) as num
+    FROM temp_table
+    GROUP BY id
+)
+
+SELECT 
+    id,
+    num 
+FROM temp_table2
+ORDER BY num DESC
+LIMIT 1;
+
 -- 1978. Exchange Seats
 -- Difficulty: Medium
 SELECT
