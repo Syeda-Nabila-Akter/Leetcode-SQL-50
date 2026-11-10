@@ -20,6 +20,7 @@ SELECT
     Salary
 FROM temp_table
 WHERE rnk <= 3;
+
 -- 1978. Exchange Seats
 -- Difficulty: Medium
 SELECT
