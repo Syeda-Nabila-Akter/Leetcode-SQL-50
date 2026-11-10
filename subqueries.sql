@@ -1,3 +1,25 @@
+-- 185. Department Top Salaries
+-- Difficulty: Hard
+WITH temp_table AS(
+    SELECT 
+        D.name AS Department,
+        E.name AS Employee,
+        E.salary AS Salary,
+        DENSE_RANK() OVER(
+        PARTITION BY D.name
+        ORDER BY salary DESC
+    ) AS rnk
+FROM Employee E
+LEFT JOIN Department D
+    ON E.departmentID = D.id
+)
+
+SELECT
+    Department,
+    Employee,
+    Salary
+FROM temp_table
+WHERE rnk <= 3;
 -- 1978. Exchange Seats
 -- Difficulty: Medium
 SELECT
