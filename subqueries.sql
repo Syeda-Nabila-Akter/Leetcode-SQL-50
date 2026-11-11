@@ -21,6 +21,25 @@ SELECT
 FROM temp_table
 WHERE rnk <= 3;
 
+-- 585. Investments in 2016
+-- Difficulty: Medium
+WITH temp_table1 AS (
+    SELECT *,
+        COUNT(*) OVER(
+            PARTITION BY lat, lon
+        ) AS location_count,
+        COUNT(*) OVER(
+            PARTITION BY tiv_2015
+        ) AS tiv_count
+    FROM Insurance
+)
+
+SELECT
+    ROUND(SUM(tiv_2016)::NUMERIC, 2) AS tiv_2016
+FROM temp_table1
+WHERE location_count = 1
+  AND tiv_count > 1;
+
 -- 1321. Restaurant Growth
 -- Difficulty: Medium
 WITH temp_table AS (
