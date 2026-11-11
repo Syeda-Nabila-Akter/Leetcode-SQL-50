@@ -21,6 +21,32 @@ SELECT
 FROM temp_table
 WHERE rnk <= 3;
 
+-- 1321. Restaurant Growth
+-- Difficulty: Medium
+WITH temp_table AS (
+    SELECT 
+        visited_on,
+        SUM(amount) AS amount,
+        SUM(SUM(amount)) OVER(
+            ORDER BY visited_on
+            RANGE BETWEEN INTERVAL '6 days' PRECEDING
+                      AND CURRENT ROW
+        ) AS total_amount,
+        ROW_NUMBER() OVER(
+            ORDER BY visited_on
+        ) AS rnk
+    FROM Customer
+    GROUP BY visited_on
+)
+
+SELECT 
+    visited_on,
+    total_amount AS amount,
+    ROUND(total_amount / 7.0, 2) AS average_amount
+FROM temp_table
+WHERE rnk >= 7
+ORDER BY visited_on;
+
 -- 602. Friend Requests II: Who Has the Most Friends
 -- Difficulty: Medium
 WITH temp_table AS(
