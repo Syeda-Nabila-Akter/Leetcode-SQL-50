@@ -21,6 +21,43 @@ SELECT
 FROM temp_table
 WHERE rnk <= 3;
 
+-- 1341. Movie Rating
+-- Difficulty: Medium
+WITH user_name_cte AS(
+    SELECT
+        DISTINCT name,
+        COUNT(name) OVER(
+            PARTITION BY name
+        ) AS movie_count
+    FROM MovieRating
+    LEFT JOIN Users
+        ON MovieRating.user_id = Users.user_id
+    ORDER BY movie_count DESC, name ASC
+    LIMIT 1
+),
+
+movie_name_cte AS(
+    SELECT
+        DISTINCT title,
+        AVG(rating) OVER(
+            PARTITION BY title
+        ) AS avg_rating
+    FROM MovieRating
+    LEFT JOIN Movies
+        ON MovieRating.movie_id = Movies.movie_id
+    WHERE created_at BETWEEN '2020-02-01' AND '2020-02-29'
+    ORDER BY avg_rating DESC
+    LIMIT 1
+)
+
+SELECT
+    unc.name AS results
+FROM user_name_cte unc
+UNION ALL
+SELECT
+    mnc.title AS results
+FROM movie_name_cte mnc;
+
 -- 585. Investments in 2016
 -- Difficulty: Medium
 WITH temp_table1 AS (
