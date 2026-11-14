@@ -24,7 +24,7 @@ Rather than keeping individual solutions scattered across different platforms, t
 | Technology | Purpose |
 |---|---|
 | SQL | Query writing and problem-solving |
-| MySQL | SQL syntax and query implementation |
+| MySQL & PostgreSQL | SQL syntax and query implementation |
 | LeetCode | Problem statements, test cases, and validation |
 | Git & GitHub | Version control and solution documentation |
 
